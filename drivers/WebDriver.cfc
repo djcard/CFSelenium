@@ -151,9 +151,9 @@
 		return local.elements;
 	}
 
-	public WebElement[] function findElementsByXPath( required string xpath ) {
+	public WebElement[] function findElementsByXPath( required string xpath,any by=getBy() ) {
 		local.elements = [];
-		local.webElements = variables.driver.findElements( variables.by.xPath( arguments.xpath ) );
+		local.webElements = variables.driver.findElements( arguments.by.xPath( arguments.xpath ) );
 
 		for( local.i = 1; local.i <= arrayLen( webElements ); local.i++ ){
 			arrayAppend( local.elements, createObject( 'component', 'WebElement' ).init( local.webElements[ local.i ] ) );
@@ -172,6 +172,18 @@
 
 	public void function setVisible( required boolean visible ) {
 		variables.driver.setVisible( javacast( 'boolean', visible ) );
+	}
+
+	public any function getWindowHandle (){
+		return variables.driver.getWindowHandle();
+	}
+
+	public any function getWindowHandles (){
+		return variables.driver.getWindowHandles();
+	}
+
+	public any function changeWindows(windowID){
+		return variables.driver.switchTo().window(windowID);
 	}
 
 // TODO - need to revisit this one
